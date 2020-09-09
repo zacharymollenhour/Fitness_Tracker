@@ -58,7 +58,8 @@ def main_menu():
         'choices': [
             'First Time User',
             'Track Workout Data',
-            'Analyze Previous Workout Data'
+            'Analyze Previous Workout Data',
+            'Workout Goal'
             ]
         }
     ]
