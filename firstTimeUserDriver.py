@@ -9,6 +9,10 @@ def main():
     age = input("Enter in your age: ")
     weight = input("Enter in your weight (in lbs): ")
     height = input("Enter in your height (in inches): ")
+    bicepsize = input("Enter in your bicep size (in inches): ")
+    chestsize = input("Enter in your chest size (in inches): ")
+    shouldersize = input("Enter in your shoulder size (in inches): ")
+    backsize = input("Enter in your back size (in inches): ")
 
     Weight = float(weight)
     Height = float(height)
@@ -18,7 +22,7 @@ def main():
     print(bmi)
 
     #Create a Object with data
-    person = Person(name,age,weight,height,bmi)
+    person = Person(name,age,weight,height,bmi,bicepsize,chestsize,shouldersize,backsize)
 
     #Push instructions and read me data to txt file
     person.updatereadMe()
