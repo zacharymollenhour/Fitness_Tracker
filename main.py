@@ -1,84 +1,153 @@
-import numpy as np 
-import pandas as pd
-import csv
-from datetime import date
-
-#Get User Name
-class Person:
-    "This is a persons data class"
-    def __init__(self):
-        self.userData = []
-        self.name = ''
-        self.age = 0
-        self.weight = 0
-
-    #Greet User for data about the individual
-    def greet(self):
-
-        #User Data
-        self.name = input("Enter in your name: ")
-        print(self.name)
-        self.age = input("Enter in your age: ")
-        print(self.age)
-        self.weight = input("Enter in your weight: ")
-        print(self.weight)
-
-    #Write Inital Data of individual being tracked
-    def updateCSV(self):
-        with open('user_statistics.csv', mode='w') as csv_file:
-            csv_reader = csv.writer(csv_file)
-            csv_reader.writerow(self.name)
-            csv_reader.writerow(self.age)
-            csv_reader.writerow(self.weight)
-
-#Class for tracking workout data
-class Workout:
-    "This is a class to track workout data"
-    def __init__(self):
-        self.date = ''
-        self.workoutType = ''
-        self.weight = 0
-        self.duration = 0
-
-    #Function to get workout information
-    def workoutData(self):
-        today = date.today()
-        self.date = today.strftime("%m/%d/%y")
-        self.workoutType = input("Please enter the workout type:")
-        print(self.workoutType)
-        self.updateWorkoutData()
-
-    #Class that writes workout data to a csv
-    def updateWorkoutData(self):
-            with open('workout_data.csv', mode='a+',newline='') as csv_file:
-                csv_reader = csv.writer(csv_file)
-                csv_reader.writerow([self.date])
-                csv_reader.writerow([self.workoutType])
-    #Menu
-    def menu(self):
-        ans = True
-        while ans:
-            print("""
-            1.Add a Workout
-            2.Delete a Workout
-            """)
-            ans=input("What would you like to do?")
-            if ans == "1":
-                self.workoutData()
-            if ans == "2":
-                "comeback"
+#Import Statements
+import sys, os
+from PyInquirer import style_from_dict, Token, prompt, Separator, print_json
+import pprint
+from examples import custom_style_2
+from pyfiglet import Figlet
+import PySimpleGUI as sg
+from termcolor import colored
 
 
-#Main Function
-def main():
-    #Declare a object
-    person1 = Person()
-    workoutObject = Workout()
 
-    #Call object functions
-    """ person1.greet()
-    person1.updateCSV() """
-    workoutObject.menu()
-    #workoutObject.workoutData()
-    #workoutObject.updateWorkoutData()
-main()
+#Main Definition - constants
+menu_actions = {}
+
+#=======================
+#     Menus Functions
+#=======================
+
+#Main Menu
+
+#Format Title
+def log(string,color,font="slant",figlet=False):
+    if colored:
+        if not figlet:
+            six.print_(colored(string,color))
+        else:
+            six.print_(colored(figlet_format (
+                string,font=font),color
+            ))
+    else:
+        six.print_(string)
+
+#Options to go back to main menu
+backOption = [
+    {
+        'type':'list',
+        'name':'backOptions',
+        'message':'Options',
+        'choices': [
+            'Main Menu',
+            'Quit'
+        ]
+    }
+]
+
+#Main Menu Function
+def main_menu():
+    
+    #Clear Screen
+    os.system('cls')
+
+    #Menu Options
+    questions = [
+        {
+        'type':'list',
+        'name':'menu',
+        'message':'Please make a choice from the list below',
+        'choices': [
+            'First Time User',
+            'Track Workout Data',
+            'Analyze Previous Workout Data'
+            ]
+        }
+    ]
+
+    #Font type of title
+    f = Figlet(font='slant')
+    print(f.renderText('Workout Tracker'))
+
+    #Print out Questions menu
+    answers = prompt(questions, style=custom_style_2)
+
+    #Process Menu Choice
+    if answers['menu'] == 'First Time User':
+        newUser()
+    if answers['menu'] == 'Track Workout Data':
+        workoutData()
+    if answers['menu'] == 'Analyze Previous Workout Data':
+        analyzeData()
+
+    print_json(answers)
+
+#New User Menu Choice
+def newUser():
+    #Clear screen
+    os.system('cls')
+
+    #Call workout python file
+    from firstTimeUserDriver import main
+
+    #Print out menu following data
+    print('\n')
+    answers = prompt(backOption,style=custom_style_2)
+
+    if answers['backOptions']=='Main Menu':
+        back
+    if answers['backOptions']=='Quit':
+        exit()
+
+    return
+
+
+#Workout Menu Choice
+def workoutData():
+    #Clear screen
+    os.system('cls')
+
+    #Call workout python file
+    from workoutmain import main
+
+    #Print out menu following data
+    print('\n')
+    answers = prompt(backOption,style=custom_style_2)
+
+    if answers['backOptions']=='Main Menu':
+        back
+    if answers['backOptions']=='Quit':
+        exit()
+
+    return
+
+
+#Back to main menu
+def back():
+    menu_actions['main_manu']()
+
+#Exit
+def exit():
+    print("Keep on grinding!")
+    sys.exit()
+
+
+#====================
+#   Menu Definitions
+#====================
+
+#Menu
+menu_actions = {
+    'main_menu': main_menu,
+    '1': newUser,
+    '2': workoutData,
+    '9':back,
+    '0':exit,
+}
+
+#====================
+#  MAIN PROGRAM
+#====================
+
+#Main Program
+if __name__ == "__main__":
+    #Launch Main Menu
+    main_menu()

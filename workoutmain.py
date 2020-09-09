@@ -1,4 +1,6 @@
 from workoutDriver import Workout
 
-workout = Workout()
-val = workout.menu()
+
+def main():
+    workout = Workout()
+    val = workout.menu()
