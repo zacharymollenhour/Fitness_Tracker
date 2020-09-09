@@ -15,7 +15,7 @@ class Person:
 
 
     #Write Inital Data of individual being tracked
-    def updateCSV(self):
+    def updatereadMe(self):
         with open('./workoutData/user_readme.txt', mode='w+') as csv_file:
             csv_reader = csv.writer(csv_file)
             csv_reader.writerow([self.intro])

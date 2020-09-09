@@ -6,7 +6,7 @@ from examples import custom_style_2
 from pyfiglet import Figlet
 import PySimpleGUI as sg
 from termcolor import colored
-
+from workoutDriver import Workout
 
 
 #Main Definition - constants
@@ -45,7 +45,7 @@ backOption = [
 
 #Main Menu Function
 def main_menu():
-    
+
     #Clear Screen
     os.system('cls')
 
@@ -99,14 +99,13 @@ def newUser():
 
     return
 
-
-#Workout Menu Choice
-def workoutData():
+#Cardio Function
+def cardio(data):
     #Clear screen
     os.system('cls')
 
-    #Call workout python file
-    from workoutmain import main
+    #Call Helper Function
+    data.cardioDetails()
 
     #Print out menu following data
     print('\n')
@@ -119,6 +118,78 @@ def workoutData():
 
     return
 
+#Cardio Function
+def pushup(data):
+    #Clear screen
+    os.system('cls')
+
+    #Call Helper Function
+    data.pushupDetails()
+
+    #Print out menu following data
+    print('\n')
+    answers = prompt(backOption,style=custom_style_2)
+
+    if answers['backOptions']=='Main Menu':
+        back
+    if answers['backOptions']=='Quit':
+        exit()
+
+    return
+
+#Cardio Function
+def pullup(data):
+
+    #Clear screen
+    os.system('cls')
+
+    #Call Helper Function
+    data.pullupDetails()
+
+    #Print out menu following data
+    print('\n')
+    answers = prompt(backOption,style=custom_style_2)
+
+    if answers['backOptions']=='Main Menu':
+        back
+    if answers['backOptions']=='Quit':
+        exit()
+
+    return
+
+#Workout Menu Choice
+def workoutData():
+
+    #Clear Screen
+    os.system('cls')
+    data = Workout()
+
+    #Menu Options
+    workoutquestions = [
+        {
+        'type':'list',
+        'name':'workoutmenu',
+        'message':'Please make a choice from the list below',
+        'choices': [
+            'Add cardio data',
+            'Add pullup data',
+            'Add pushup data'
+            ]
+        }
+    ]
+
+    #Print out menu following data
+    print('\n')
+    answers = prompt(workoutquestions,style=custom_style_2)
+
+    if answers['workoutmenu']=='Add cardio data':
+        cardio(data)
+    if answers['workoutmenu']=='Add pullup data':
+        pullup(data)
+    if answers['workoutmenu']=='Add pushup data':
+        pushup(data)
+
+    return
 
 #Back to main menu
 def back():
@@ -139,6 +210,16 @@ menu_actions = {
     'main_menu': main_menu,
     '1': newUser,
     '2': workoutData,
+    '9':back,
+    '0':exit,
+}
+
+#workout menu
+workout_actions = {
+    'main_menu': main_menu,
+    '1': cardio,
+    '2': pullup,
+    '3': pushup,
     '9':back,
     '0':exit,
 }

@@ -6,6 +6,7 @@ import csv
 #Class for tracking workout data
 class Workout:
     "This is a class to track workout data"
+    #Self Init Function
     def __init__(self):
         self.date = ''
         self.workoutType = ''
@@ -27,7 +28,7 @@ class Workout:
                 csv_reader.writerow(['Date','Workout Type', 'Distance','Duration'])
                 csv_reader.writerow([self.date,self.workoutType,self.distance,self.time])
 
-    #Get data of pullup workout
+    #Get data of pullup workout and output to csv file
     def pullupDetails(self):
         self.workoutType = 'Pullup'
         self.repetitions = input("Please Enter the number of pullups: ")
@@ -36,7 +37,7 @@ class Workout:
                 csv_reader.writerow(['Date','Workout Type', 'Repetitions'])
                 csv_reader.writerow([self.date,self.workoutType,self.repetitions])
 
-    #Get data of pullup workout
+    #Get data of pullup workout and output to csv file
     def pushupDetails(self):
         self.workoutType = 'Pushup'
         self.repetitions = input("Please Enter the number of pushups:")
@@ -45,33 +46,4 @@ class Workout:
                 csv_reader.writerow(['Date','Workout Type', 'Repetitions'])
                 csv_reader.writerow([self.date,self.workoutType,self.repetitions])
 
-    #Main Menu
-    def menu(self):
-        ans = True
-        while ans:
-            print("""
-            1.Add a Workout
-            2.See Historical Data
-            """)
-            ans=input("What would you like to do?")
-            if ans == "1":
-                self.workoutMenu()
-            if ans == "2":
-                "comeback"
-
-    #Workout Type Menu
-    def workoutMenu(self):
-        ans = True
-        while ans:
-            print("""
-            1.Cardio
-            2.Pushups
-            3.Pullups
-            """)
-            ans=input("What type of workout would you like to track?")
-            if ans == "1":
-                self.cardioDetails()
-            if ans == "2":
-                self.pushupDetails()
-            if ans == "3":
-                self.pullupDetails()
+    

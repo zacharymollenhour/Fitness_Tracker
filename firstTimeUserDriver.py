@@ -11,6 +11,8 @@ def main():
 
     #Create a Object with data
     person = Person(name,age,weight)
-    person.updateCSV()
+
+    #Push instructions and read me data to txt file
+    person.updatereadME()
 
 main()
