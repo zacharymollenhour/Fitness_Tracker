@@ -58,7 +58,6 @@ def main_menu():
         'choices': [
             'First Time User',
             'Track Workout Data',
-            'Analyze Previous Workout Data',
             'Workout Goal'
             ]
         }
@@ -76,10 +75,28 @@ def main_menu():
         newUser()
     if answers['menu'] == 'Track Workout Data':
         workoutData()
-    if answers['menu'] == 'Analyze Previous Workout Data':
-        analyzeData()
+    if answers['menu'] == 'Workout Goal':
+        workoutGoals()
 
     print_json(answers)
+
+def workoutGoals():
+    #Clear Screen
+    os.system('cls')
+
+    #Call Goals File
+    from workoutGoals import main
+
+    #Print out menu following data
+    print('\n')
+    answers = prompt(backOption,style=custom_style_2)
+
+    if answers['backOptions']=='Main Menu':
+        back
+    if answers['backOptions']=='Quit':
+        exit()
+
+    return
 
 #New User Menu Choice
 def newUser():
@@ -211,6 +228,7 @@ menu_actions = {
     'main_menu': main_menu,
     '1': newUser,
     '2': workoutData,
+    '3': workoutGoals,
     '9':back,
     '0':exit,
 }
