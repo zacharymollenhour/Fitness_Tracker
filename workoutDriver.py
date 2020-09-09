@@ -11,40 +11,41 @@ class Workout:
         self.workoutType = ''
         self.weight = 0
         self.duration = 0
-
-    #Function to get workout information
-    def workoutData(self):
         today = date.today()
         self.date = today.strftime("%m/%d/%y")
         self.distance = 0
         self.duration = 0
         self.repetitions = 0
-        self.updateWorkoutData()
 
-    #Class that writes workout data to a csv
-    def updateWorkoutData(self):
-            with open('workout_data.csv', mode='a+',newline='') as csv_file:
-                csv_reader = csv.writer(csv_file)
-                csv_reader.writerow([self.date])
-                csv_reader.writerow([self.workoutType])
-
-    #Get data of cardio workout
+    #Get data of cardio workout and output to csv file
     def cardioDetails(self):
         self.workoutType = 'Cardio'
-        self.distance = input("Please Enter the distance ran:")
-        self.time = input("Please Enter the duration (in minutes)")
+        self.distance = input("Please Enter the distance ran (in miles): ")
+        self.time = input("Please Enter the duration (in minutes): ")
+        with open('./workoutData/runworkout_data.csv', mode='a+') as csv_file:
+                csv_reader = csv.writer(csv_file)
+                csv_reader.writerow(['Date','Workout Type', 'Distance','Duration'])
+                csv_reader.writerow([self.date,self.workoutType,self.distance,self.time])
 
     #Get data of pullup workout
     def pullupDetails(self):
-        self.workoutType = 'pullup'
-        self.repetitions = input("Please Enter the number of pullups:")
+        self.workoutType = 'Pullup'
+        self.repetitions = input("Please Enter the number of pullups: ")
+        with open('./workoutData/pullupworkout_data.csv', mode='a+') as csv_file:
+                csv_reader = csv.writer(csv_file)
+                csv_reader.writerow(['Date','Workout Type', 'Repetitions'])
+                csv_reader.writerow([self.date,self.workoutType,self.repetitions])
 
     #Get data of pullup workout
     def pushupDetails(self):
-        self.workoutType = 'pushup'
+        self.workoutType = 'Pushup'
         self.repetitions = input("Please Enter the number of pushups:")
+        with open('./workoutData/pushupupworkout_data.csv', mode='a+') as csv_file:
+                csv_reader = csv.writer(csv_file)
+                csv_reader.writerow(['Date','Workout Type', 'Repetitions'])
+                csv_reader.writerow([self.date,self.workoutType,self.repetitions])
 
-    #Menu
+    #Main Menu
     def menu(self):
         ans = True
         while ans:
@@ -58,7 +59,7 @@ class Workout:
             if ans == "2":
                 "comeback"
 
-    #Menu
+    #Workout Type Menu
     def workoutMenu(self):
         ans = True
         while ans:
